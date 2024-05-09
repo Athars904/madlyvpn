@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:madlyvpn/controllers/home_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:madlyvpn/helpers/messages.dart';
 import 'package:madlyvpn/models/vpn.dart';
 import 'package:madlyvpn/services/vpn_engine.dart';
+import 'package:madlyvpn/helpers/pref.dart';
 late Size mq;
 
 class VpnCard extends StatelessWidget {
@@ -25,6 +27,7 @@ class VpnCard extends StatelessWidget {
         onTap: ()
         {
           controller.vpn.value=vpn;
+          Pref.vpn=vpn;
           Get.back();
           if(controller.vpnState.value==VpnEngine.vpnDisconnected)
           {

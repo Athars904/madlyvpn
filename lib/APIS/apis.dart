@@ -1,7 +1,8 @@
 import 'dart:developer';
 import 'package:csv/csv.dart';
 import 'package:http/http.dart';
-
+import 'package:madlyvpn/helpers/messages.dart';
+import 'package:madlyvpn/helpers/pref.dart';
 import '../models/vpn.dart';
 
 class APIs {
@@ -25,11 +26,12 @@ class APIs {
         vpnList.add(Vpn.fromJson(tempJson));
       }
     } catch (e) {
+      MyMessages.failed('Check Internet connection and try again!');
       log('\ngetVPNServersE: $e');
     }
     vpnList.shuffle();
 
-
+    if(vpnList.isNotEmpty) Pref.vpnList=vpnList;
     return vpnList;
   }
 

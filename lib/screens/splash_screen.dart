@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Add this import for SystemChrome
 import 'package:madlyvpn/screens/home_screen.dart';
 import 'package:get/get.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -10,8 +11,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late Size mq;
-
   @override
   void initState() {
     super.initState();
@@ -21,39 +20,56 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Delay opening the HomePage by 2 seconds
     Future.delayed(const Duration(seconds: 2), () {
-      Get.off(()=>HomeScreen());
+      Get.off(() => HomeScreen());
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
-      body: Stack(
-        children: [
-          Positioned(
-            top: mq.height * 0.2,
-            width: mq.height * 0.5,
-            left: mq.width * 0.0,
-            child: Image.asset('assets/images/logo.png'),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/dark.jpg'),
+            fit: BoxFit.cover,
           ),
-          // Centered text
-          Positioned(
-            bottom: mq.height * 0.15,
-            right: mq.width * 0.15,
-            child: const Center(
-              child: Text(
-                'GET INFINITE WITH MORE ACCESS',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2.0
-                ),
-              ),
-            ),
+        ),
+        child: Center( // Center the content on the screen
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Column(
+                children: [
+                  const SizedBox(
+                    height: 200,
+                  ),
+                  Center(
+                    child: Image.asset(
+                      'assets/images/madly.png',
+                      width: constraints.maxHeight * 0.47,
+                      // Adjust the width according to the screen height
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 100,
+                  ),
+
+                  // Centered text
+                  const Center(
+                    child: Text(
+                      'THE PROXY OF MADNESS',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 2.0,
+                        color: Colors.white38,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
-        ],
+        ),
       ),
     );
   }

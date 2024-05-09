@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
 
             title: Center(
               child: Text(
-                'MadlyVPN',
+                'Madly VPN',
                 style: GoogleFonts.merriweather(
                   textStyle: const TextStyle(
                     color: Colors.grey,
@@ -47,9 +47,13 @@ class HomeScreen extends StatelessWidget {
             button: true,
             child: InkWell(
               onTap: () {
-                showModalBottomSheet(context: context, builder: (context) => LocationScreen());
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => LocationScreen(),
+                );
               },
-              child: Container(
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
                 height: 60,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -57,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                   ),
-                  borderRadius: BorderRadius.only(
+                  borderRadius:const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),
@@ -65,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.3),
                       blurRadius: 10,
-                      offset: Offset(0, -3),
+                      offset: const Offset(0, -3),
                     ),
                   ],
                 ),
@@ -89,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Spacer(),
                     CircleAvatar(
-                      backgroundColor: Colors.lightBlueAccent,
+                      backgroundColor: Colors.cyan,
                       child: Icon(Icons.navigate_next_rounded, color: Colors.white),
                     )
                   ],
@@ -123,13 +127,20 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         child: ClipOval(
-                          child: Image.asset(
+                          child: _controller.vpn.value.countryShort.isNotEmpty
+                              ? Image.asset(
                             'assets/flags/${_controller.vpn.value.countryShort.toLowerCase()}.png',
-                            width: 25.0, // Adjust the width as needed
-                            height: 25.0, // Adjust the height as needed
+                            width: 25.0,
+                            height: 25.0,
                             fit: BoxFit.cover,
+                          )
+                              : const Icon(
+                            Icons.public, // World icon
+                            size: 25.0,
+                            color: Colors.white,
                           ),
                         ),
+
                       ),
                       const SizedBox(width: 8),
                       Text(

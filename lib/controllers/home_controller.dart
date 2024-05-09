@@ -1,17 +1,22 @@
 import 'package:get/get.dart';
+import 'package:madlyvpn/helpers/messages.dart';
 import 'package:madlyvpn/services/vpn_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:madlyvpn/models/vpn.dart';
 import 'dart:convert';
 import 'package:madlyvpn/models/vpn_config.dart';
+import 'package:madlyvpn/helpers/pref.dart';
 class HomeController extends GetxController{
   RxString vpnState = VpnEngine.vpnDisconnected.obs;
-  final Rx<Vpn>vpn=Vpn.fromJson({}).obs;
+  final Rx<Vpn> vpn = Pref.vpn.obs;
 
 
   Future<void> connectToVpn() async {
     ///Stop right here if user not select a vpn
-    if(vpn.value.openVPNConfigDataBase64.isEmpty) return;
+    if(vpn.value.openVPNConfigDataBase64.isEmpty) {
+      MyMessages.prompt('Select a server first');
+      return;
+    }
 
 
     if (vpnState.value == VpnEngine.vpnDisconnected) {
