@@ -4,31 +4,38 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:madlyvpn/controllers/home_controller.dart';
 import 'package:madlyvpn/screens/location_screen.dart';
-import 'package:madlyvpn/widgets/home_card.dart';
 import '../models/vpn_status.dart';
 import '../services/vpn_engine.dart';
-
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:madlyvpn/helpers/adhelper.dart';
 late Size mq;
+
 class HomeScreen extends StatelessWidget {
   final _controller = Get.put(HomeController());
-  HomeScreen({super.key});
 
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
+    _showAppOpenAdAfterDelay(context);
     VpnEngine.vpnStageSnapshot().listen((event) {
       _controller.vpnState.value = event;
     });
+
     mq = MediaQuery.of(context).size;
+
     return SafeArea(
       child: Container(
-        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/dark.jpg'),fit: BoxFit.cover),),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/dark.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-
             title: Center(
               child: Text(
                 'Madly VPN',
@@ -37,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    letterSpacing: 2.0// Adjust the font size as needed
+                    letterSpacing: 2.0,
                   ),
                 ),
               ),
@@ -61,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                   ),
-                  borderRadius:const BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),
@@ -101,12 +108,11 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-
-
-          body: Obx(()=>
-             Column(mainAxisSize: MainAxisSize.min,
+          body: Obx(
+                () => SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-
                   SizedBox(
                     height: mq.height * .10,
                     width: double.maxFinite,
@@ -140,7 +146,6 @@ class HomeScreen extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-
                       ),
                       const SizedBox(width: 8),
                       Text(
@@ -160,18 +165,27 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-
-
                   const SizedBox(
-                height: 15,
+                    height: 15,
+                  ),
+                  _vpnButton(),
+                ],
               ),
-               _vpnButton(),
-            ]),
+            ),
           ),
         ),
       ),
     );
   }
+  Future<void> _showAppOpenAdAfterDelay(BuildContext context) async {
+    // Delay opening the ad by a few seconds
+    await Future.delayed(const Duration(seconds: 3)); // Adjust the delay time as needed
+
+    // Show the app open ad
+    AdHelper.loadAppOpen();
+
+  }
+
   Widget _vpnButton() => Column(
     children: [
       Semantics(
@@ -237,7 +251,8 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),Container(
+      ),
+      Container(
         margin: EdgeInsets.only(top: mq.height * 0.015),
         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
         decoration: BoxDecoration(
@@ -265,23 +280,19 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              _controller.vpnState.value == VpnEngine.vpnDisconnected
-                  ? Icons.close
-                  : Icons.check,
+              _controller.vpnState.value == VpnEngine.vpnDisconnected ? Icons.close : Icons.check,
               color: Colors.white,
             ),
             const SizedBox(width: 8),
             Text(
               _controller.vpnState.value == VpnEngine.vpnDisconnected
                   ? 'Not Connected'
-                  : _controller.vpnState.replaceAll('_', ' ').toUpperCase(),
+                  : _controller.vpnState.value.replaceAll('_', ' ').toUpperCase(),
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
           ],
         ),
       ),
-
     ],
   );
-
 }

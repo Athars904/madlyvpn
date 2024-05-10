@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:madlyvpn/helpers/adhelper.dart';
 import 'package:madlyvpn/helpers/messages.dart';
 import 'package:madlyvpn/services/vpn_engine.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,9 @@ class HomeController extends GetxController{
           username: 'vpn',
           password: 'vpn',
           config: config);
-      await VpnEngine.startVpn(vpnConfig);
+      AdHelper.showInterstitialAd(onComplete: ()async{
+        await VpnEngine.startVpn(vpnConfig);
+      });
     }
     VpnEngine.stopVpn();
   }

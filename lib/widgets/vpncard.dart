@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:get/get.dart';
 import 'package:madlyvpn/controllers/home_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:madlyvpn/helpers/messages.dart';
 import 'package:madlyvpn/models/vpn.dart';

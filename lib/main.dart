@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:madlyvpn/helpers/adhelper.dart';
 import 'package:madlyvpn/screens/splash_screen.dart';
 import 'package:get/get.dart';
 import 'package:madlyvpn/helpers/pref.dart';
@@ -7,6 +8,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   await Pref.initializeHive();
+  await AdHelper.initAds();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value){
     runApp(const MyApp());
   });
