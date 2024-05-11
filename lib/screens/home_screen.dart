@@ -17,7 +17,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _showAppOpenAdAfterDelay(context);
     VpnEngine.vpnStageSnapshot().listen((event) {
       _controller.vpnState.value = event;
     });
@@ -176,14 +175,6 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-  Future<void> _showAppOpenAdAfterDelay(BuildContext context) async {
-    // Delay opening the ad by a few seconds
-    await Future.delayed(const Duration(seconds: 3)); // Adjust the delay time as needed
-
-    // Show the app open ad
-    AdHelper.loadAppOpen();
-
   }
 
   Widget _vpnButton() => Column(

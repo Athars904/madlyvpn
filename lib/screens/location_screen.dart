@@ -67,20 +67,22 @@ class LocationScreen extends StatelessWidget {
   _loadingWidget() => SizedBox(
     width: double.infinity,
     height: double.infinity,
-    child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          LottieBuilder.asset(
-            'assets/lottie/lottieanim.json',
-            width: 250,
-            height: 250,
-          ),
-          const Text(
-            'Getting the best servers for you',
-            style: TextStyle(fontSize: 24, color: Colors.white70),
-          )
-        ],
+    child: SingleChildScrollView(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            LottieBuilder.asset(
+              'assets/lottie/lottieanim.json',
+              width: 250,
+              height: 250,
+            ),
+            const Text(
+              'Getting the best servers for you',
+              style: TextStyle(fontSize: 24, color: Colors.white70),
+            )
+          ],
+        ),
       ),
     ),
   );

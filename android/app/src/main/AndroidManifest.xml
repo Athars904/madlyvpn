@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.openVpnDemo">
+    package="com.example.madlyvpn">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -59,7 +59,7 @@
         </service>
     </application>
     <!-- Required to query activities that can process text, see:
-         https://developer.android.com/training/package="com.example.openVpnDemo">
+         https://developer.android.com/training/package="com.example.madlyvpn">
          https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
 
          In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->

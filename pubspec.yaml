@@ -43,6 +43,11 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   google_mobile_ads: ^5.1.0
+  firebase_core: ^2.31.0
+  change_app_package_name: ^1.1.0
+  flutter_launcher_icons: ^0.13.1
+  firebase_remote_config: ^4.4.5
+  firebase_analytics: ^10.10.5
 
 dev_dependencies:
   flutter_test:
@@ -102,4 +107,11 @@ flutter:
     - assets/flags/
     - assets/images/
     - assets/lottie/
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.png"
+  min_sdk_android: 21
 
